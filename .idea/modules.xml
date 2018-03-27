@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartParkingSystem-master.iml" filepath="$PROJECT_DIR$/SmartParkingSystem-master.iml" />
+      <module fileurl="file://E:\ehsan\Android_lectures\SmartParkingSystem-master\SmartParkingSystem-master.iml" filepath="E:\ehsan\Android_lectures\SmartParkingSystem-master\SmartParkingSystem-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\ehsan\Android_lectures\SmartParkingSystem-master\app\app.iml" filepath="E:\ehsan\Android_lectures\SmartParkingSystem-master\app\app.iml" />
     </modules>
   </component>
 </project>
