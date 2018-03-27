@@ -17,7 +17,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         super(fragmentManager);
     }
     List<Fragment> fragmentList=new LinkedList<>();
-    //List<String> text=new LinkedList<>();
+    List<String> text=new LinkedList<>();
     @Override
     public Fragment getItem(int position) {
 
@@ -28,14 +28,14 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragmentList.size();
     }
-    //@Override
-//   // public CharSequence getPageTitle(int position)
-//    {
-//        return text.get(position);
-//    }
-    public  void addFragment(Fragment fragment)
+    @Override
+    public CharSequence getPageTitle(int position)
+    {
+        return text.get(position);
+    }
+    public  void addFragment(Fragment fragment,String st)
     {
         fragmentList.add(fragment);
-        //text.add(st);
+        text.add(st);
     }
 }
