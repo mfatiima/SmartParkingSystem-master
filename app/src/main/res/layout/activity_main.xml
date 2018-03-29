@@ -69,18 +69,22 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
-            tools:layout_editor_absoluteX="137dp"
-            tools:layout_editor_absoluteY="353dp" />
+           />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="288dp" />
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+           />
+
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/twitter_login_button"
+            android:layout_width="250dp"
+            android:layout_height="50dp" />
 
     </LinearLayout>
     <LinearLayout

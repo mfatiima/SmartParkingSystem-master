@@ -56,6 +56,13 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     LocationRequest locationRequest;
     LoginButton loginButton;
     SignInButton signInButton;
+    private TwitterLoginButton tLoginButton;
     CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     private static final String GOOGLE_TAG = "GoogleActivity";
@@ -86,7 +94,7 @@ private static final String TAG = "FacebookLogin";
         setContentView(R.layout.activity_main);
         loginButton = (LoginButton)findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
-
+        Twitter.initialize(this);
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
         googleSignIn();
@@ -125,7 +133,7 @@ private static final String TAG = "FacebookLogin";
             Intent intent=new Intent(this,Home_Screen.class);
            finish();
            startActivity(intent);
-            FirebaseAuth.getInstance().signOut();
+           // FirebaseAuth.getInstance().signOut();
         }
 
         ViewPager pager=(ViewPager)findViewById(R.id.imageviewPager);
@@ -160,7 +168,24 @@ private static final String TAG = "FacebookLogin";
 
             }
         });
+
+        tLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        tLoginButton.setEnabled(true);
+        tLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                Log.d(TAG, "twitterLogin:success" + result);
+                handleTwitterSession(result.data);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.w(TAG, "twitterLogin:failure", exception);
+                updateUI(null);
+            }
+        });
     }
+
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -171,6 +196,34 @@ private static final String TAG = "FacebookLogin";
         }
     }
 
+    private void handleTwitterSession(TwitterSession session) {
+        Log.d(TAG, "handleTwitterSession:" + session);
+
+        AuthCredential credential = TwitterAuthProvider.getCredential(
+                session.getAuthToken().token,
+                session.getAuthToken().secret);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
     private void googleSignInAction() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -179,10 +232,10 @@ private static final String TAG = "FacebookLogin";
     @Override
     public void onStart() {
         super.onStart();
-        signOut();
+       // signOut();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-       // updateUI(currentUser);
+        updateUI(currentUser);
     }
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
@@ -248,6 +301,9 @@ private static final String TAG = "FacebookLogin";
                 // ...
             }
         }
+
+        // Pass the activity result to the Twitter login button.
+        tLoginButton.onActivityResult(requestCode, resultCode, data);
     }
 
     public void LoginButtonPressed(View view) {
@@ -257,10 +313,9 @@ private static final String TAG = "FacebookLogin";
 
     }
     private void updateUI(FirebaseUser user) {
-        if (FirebaseAuth.getInstance().getCurrentUser() !=null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             finish();
             startActivity(new Intent(this, Home_Screen.class));
-            FirebaseAuth.getInstance().signOut();
         }
     }
     private void signIn() {

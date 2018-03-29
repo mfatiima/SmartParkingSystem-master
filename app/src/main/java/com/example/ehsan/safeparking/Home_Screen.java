@@ -1,5 +1,6 @@
 package com.example.ehsan.safeparking;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +18,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Home_Screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener{
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_home__screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,11 +98,14 @@ public class Home_Screen extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //=--------------
+            signOut();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -124,4 +135,17 @@ public class Home_Screen extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    private void updateUI(FirebaseUser user) {
+            this.finish();
+            startActivity(new Intent(this, MainActivity.class));
+            FirebaseAuth.getInstance().signOut();
+    }
+
+    public void signOut() {
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        updateUI(null);
+    }
+
 }

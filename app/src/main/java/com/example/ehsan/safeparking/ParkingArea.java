@@ -85,7 +85,7 @@ public class ParkingArea extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        for(int i=0;i<12;i++)
+        for(int i=0; i<12; i++)
         {
             Random rand = new Random();
             int index=(int) rand.nextInt(6);

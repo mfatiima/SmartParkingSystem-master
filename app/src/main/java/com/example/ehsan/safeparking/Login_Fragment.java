@@ -22,6 +22,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,11 +37,15 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 public class Login_Fragment extends Fragment implements OnClickListener {
     private static View view;
@@ -54,6 +59,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     private static FragmentManager fragmentManager;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+
     Activity mActivity=this.getActivity();
 //    Intent intent=new Intent(getActivity(),Home_Screen.class);
     public Login_Fragment() {
@@ -65,7 +71,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(getActivity());
         firebaseAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
