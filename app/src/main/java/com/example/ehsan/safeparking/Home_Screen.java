@@ -37,9 +37,9 @@ public class Home_Screen extends AppCompatActivity
         //getSupportActionBar().setIcon(R.drawable.youtube_pic);
         final ViewPager viewPager=(ViewPager)findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter= new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(History_Fragment.newInstance(null,null));
-        pagerAdapter.addFragment(SearchFragment.newInstance(null, "Home"));
-        pagerAdapter.addFragment(Setting_Fragment.newInstance(null,null));
+        pagerAdapter.addFragment(History_Fragment.newInstance(null,null),"");
+        pagerAdapter.addFragment(SearchFragment.newInstance(null, "Home"),"");
+        pagerAdapter.addFragment(Setting_Fragment.newInstance(null,null),"");
         viewPager.setAdapter(pagerAdapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

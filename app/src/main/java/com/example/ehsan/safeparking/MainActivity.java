@@ -140,8 +140,8 @@ private static final String TAG = "FacebookLogin";
         final ImageView f1=(ImageView)findViewById(R.id.f1);
         final ImageView f2=(ImageView)findViewById(R.id.f2);
         PagerAdapter pagerAdapter=new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new LauncherFragment());
-        pagerAdapter.addFragment(new SearchFragment());
+        pagerAdapter.addFragment(new LauncherFragment(),"");
+        pagerAdapter.addFragment(new SearchFragment(),"");
         pager.setAdapter(pagerAdapter);
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
