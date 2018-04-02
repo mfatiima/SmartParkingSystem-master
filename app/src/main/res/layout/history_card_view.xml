@@ -34,7 +34,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/person_photo"
                 android:text="Air Port"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/person_age"
@@ -43,6 +43,16 @@
                 android:layout_below="@+id/person_name"
                 android:layout_toRightOf="@+id/person_photo"
                 android:text="Lahore" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/person_age"
+                android:rating="4.5" />
 
         </RelativeLayout>
 

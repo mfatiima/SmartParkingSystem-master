@@ -50,7 +50,6 @@
         <item>Food Place</item>
     </string-array>
     <string-array name="Reservation_Time">
-        <item>Choose Time</item>
         <item>10 minutes</item>
         <item>15 minutes</item>
         <item>30 minutes</item>

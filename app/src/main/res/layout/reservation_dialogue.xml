@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="10dp"
         android:text="Estimated Time"
         android:textColor="@color/black"
         android:textSize="18sp" />
@@ -22,13 +22,56 @@
             android:layout_height="60dp"
             android:entries="@array/Reservation_Time" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Registration No : "
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/vehicleNo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="e.g; LEO 14 1745" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Reservation Fare : "
+        android:textColor="@color/red"
+        android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/fare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="50 PKR"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Confirm Reservation?"
+        android:padding="10dp"
+        android:text="Confirm Reservation ?"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
+
+
 
 </LinearLayout>

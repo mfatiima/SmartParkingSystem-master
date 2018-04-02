@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -166,6 +168,30 @@ public class ParkingArea extends Fragment {
 
             }
         });
+        LayoutInflater layoutInflater=(LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view1=layoutInflater.inflate(R.layout.reservation_dialogue,container);
+        Spinner spinner=(Spinner)view1.findViewById(R.id.appCompatSpinner);
+        final TextView fare=(TextView)view1.findViewById(R.id.fare);
+        fare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getApplicationContext(),"Reservation Confirmed",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int fr=50+20*(i);
+                fare.setText(fr+"");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         listview1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -177,7 +203,7 @@ public class ParkingArea extends Fragment {
                     {
                         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity())
                                 .setTitle("Slot Reservation")
-                                .setView(R.layout.reservation_dialogue)
+                                .setView(view1)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
