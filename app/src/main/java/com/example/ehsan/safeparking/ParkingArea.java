@@ -22,6 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,13 +37,24 @@ public class ParkingArea extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    List<Map<String, Integer>> list1 = new LinkedList();
+    List<Map<String, Integer>> list2 = new LinkedList();
+    List<Map<String, Integer>> list3 = new LinkedList();
+    List<Map<String, Integer>> list4 = new LinkedList();
+    List<String> Statuslist1 = new LinkedList();
+    List<String> Statuslist2 = new LinkedList();
+    List<String> Statuslist3 = new LinkedList();
+    List<String> Statuslist4 = new LinkedList();
+    int[] left_images = {R.drawable.left_car_empty, R.drawable.no_parking, R.drawable.left_reserved, R.drawable.left_car1, R.drawable.left_car2, R.drawable.left_car3};
+    int[] right_images = {R.drawable.right_car_empty, R.drawable.right_no_parking, R.drawable.right_reserved, R.drawable.right_car1, R.drawable.right_car2, R.drawable.right_car3};
+    String[] Status = {"empty", "no_parking", "reserved", "occupied", "occupied", "occupied"};
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference reference = firebaseDatabase.getReference();
+    private DatabaseReference Childreference = reference.child("Slots").child("Slots");
     public ParkingArea() {
         // Required empty public constructor
     }
@@ -70,19 +84,9 @@ public class ParkingArea extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
-    List<Map<String,Integer>> list1=new LinkedList();
-    List<Map<String,Integer>> list2=new LinkedList();
-    List<Map<String,Integer>> list3=new LinkedList();
-    List<Map<String,Integer>> list4=new LinkedList();
-    List<String> Statuslist1=new LinkedList();
-    List<String> Statuslist2=new LinkedList();
-    List<String> Statuslist3=new LinkedList();
-    List<String> Statuslist4=new LinkedList();
-    int[] left_images={R.drawable.left_car_empty,R.drawable.no_parking,R.drawable.left_reserved,R.drawable.left_car1,R.drawable.left_car2,R.drawable.left_car3};
-    int[] right_images={R.drawable.right_car_empty,R.drawable.right_no_parking,R.drawable.right_reserved,R.drawable.right_car1,R.drawable.right_car2,R.drawable.right_car3};
-    String [] Status={"empty","no_parking","reserved","occupied","occupied","occupied"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
