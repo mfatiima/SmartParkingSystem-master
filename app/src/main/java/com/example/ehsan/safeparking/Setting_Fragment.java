@@ -64,7 +64,7 @@ public class Setting_Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.setting_layout, container, false);
@@ -78,6 +78,43 @@ public class Setting_Fragment extends Fragment {
                 startActivity(intent);
             }
         });
+        ImageView profile=(ImageView)view.findViewById(R.id.profile_go);
+        ImageView reservation=(ImageView)view.findViewById(R.id.reservatio_go);
+        ImageView parking=(ImageView)view.findViewById(R.id.parking_go);
+        ImageView cred=(ImageView)view.findViewById(R.id.login_go);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),Settings.class);
+                intent.putExtra("fragment","profile");
+                startActivity(intent);
+            }
+        });
+        reservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),Settings.class);
+                intent.putExtra("fragment","reservation");
+                startActivity(intent);
+            }
+        });
+        parking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),Settings.class);
+                intent.putExtra("fragment","parking");
+                startActivity(intent);
+            }
+        });
+        cred.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),Settings.class);
+                intent.putExtra("fragment","login");
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

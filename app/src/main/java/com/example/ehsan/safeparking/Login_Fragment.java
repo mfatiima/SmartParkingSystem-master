@@ -217,7 +217,9 @@ public class Login_Fragment extends Fragment implements OnClickListener {
             // Else do login and do your stuff
         else {
             Login.isLoggedIn=true;
-            userLogin();
+            getActivity().finish();
+            getActivity().startActivity(new Intent(getActivity(), Home_Screen.class));
+           // userLogin();
         }
     }
 

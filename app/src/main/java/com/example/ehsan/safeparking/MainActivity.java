@@ -57,6 +57,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
@@ -72,20 +77,23 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
 
 
+    private static final String GOOGLE_TAG = "GoogleActivity";
+    private static final int RC_SIGN_IN = 9001;
+    // ...
+    private static final String TAG = "FacebookLogin";
+    public static double longitude = 74.3031411, latitude = 31.4812031;
     GoogleApiClient googleApiClient;
     LocationRequest locationRequest;
     LoginButton loginButton;
     SignInButton signInButton;
-    private TwitterLoginButton tLoginButton;
     CallbackManager callbackManager;
+    private TwitterLoginButton tLoginButton;
     private FirebaseAuth mAuth;
-    private static final String GOOGLE_TAG = "GoogleActivity";
-    private static final int RC_SIGN_IN = 9001;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference reference = firebaseDatabase.getReference();
+    private DatabaseReference Childreference = reference.child("ParkingArea").child("Slots");
     private GoogleSignInClient mGoogleSignInClient;
-// ...
-private static final String TAG = "FacebookLogin";
 
-    public static double longitude=74.3031411,latitude=31.4812031;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,6 +240,19 @@ private static final String TAG = "FacebookLogin";
     @Override
     public void onStart() {
         super.onStart();
+
+        Childreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(getApplicationContext(), dataSnapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
        // signOut();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
