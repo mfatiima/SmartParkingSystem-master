@@ -33,7 +33,7 @@ public class History_Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    List<Place> placeList = new LinkedList<>();
     private OnFragmentInteractionListener mListener;
 
     public History_Fragment() {
@@ -67,7 +67,6 @@ public class History_Fragment extends Fragment {
         }
     }
 
-    List<Place> placeList=new LinkedList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +76,7 @@ public class History_Fragment extends Fragment {
         rv.setHasFixedSize(false);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         rv.setLayoutManager(llm);
+        isAdded();
         placeList.add(new Place("NUCES(FAST)", "22-B Faisal Town,  Lahore", R.drawable.nuces));
         placeList.add(new Place("Emporium Mall", "Expo Center, johar town, lahore", R.drawable.emporium));
         placeList.add(new Place("Packages Mall", "Johar Town, Lahore", R.drawable.packages));
