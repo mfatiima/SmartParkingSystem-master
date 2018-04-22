@@ -76,7 +76,6 @@ public class History_Fragment extends Fragment {
         rv.setHasFixedSize(false);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         rv.setLayoutManager(llm);
-        isAdded();
         placeList.add(new Place("NUCES(FAST)", "22-B Faisal Town,  Lahore", R.drawable.nuces));
         placeList.add(new Place("Emporium Mall", "Expo Center, johar town, lahore", R.drawable.emporium));
         placeList.add(new Place("Packages Mall", "Johar Town, Lahore", R.drawable.packages));
